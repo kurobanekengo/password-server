@@ -1,40 +1,7 @@
 import * as express from "express";
 import { Request, Response, NextFunction } from "express";
-
-export enum ApiMethod {
-  POST, GET, DELETE, PUT
-}
-
-export enum ApiVersion {
-  V1 = "v1"
-}
-
-export type ApiBody = (req: Request, res: Response) => void;
-
-export interface ApiDefinition {
-  resourceName: string;
-  version: ApiVersion;
-  apiMethod: ApiMethod;
-  apiBody: ApiBody;
-}
-
-const defineApi = (resourceName: string, version: ApiVersion, apiMethod: ApiMethod, apiBody: ApiBody) => {
-  return { resourceName, version, apiMethod, apiBody};
-};
-
-const defineApis = (): ApiDefinition[] => {
-  const v1 = ApiVersion.V1;
-  const get  = ApiMethod.GET;
-  return [
-    defineApi("passwords", v1,  get, getPasswords)
-  ];
-};
-
-const getPasswords: ApiBody = (req, res) => {
-  res.send({
-    message: "HELLO, WORLD"
-  });
-};
+import {defineApis} from "@api/apiDefinitions";
+import {ApiMethod} from "@api/apiDescriptor";
 
 const server= express();
 server.use((req: Request, res: Response, next: NextFunction) => {
