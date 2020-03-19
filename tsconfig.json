@@ -12,7 +12,7 @@
     "paths": {
       "@server/*": ["source/server/*", "build/server/*"],
       "@api/*": ["source/api/*", "build/api/*"],
-      "@model/*": ["source/model/*", "build/model/*"]
+      "@core/*": ["node_modules/password-core/dist/*"]
     }
   },
   "exclude": [

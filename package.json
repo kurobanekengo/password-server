@@ -4,13 +4,14 @@
   "description": "## NodeJSのインストール ### NVMのインストール",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node -r tsconfig-paths/register source/server/server.ts",
+    "start": "ts-node -r tsconfig-paths/register source/start.ts",
     "build": "tsc"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "password-core": "git+https://github.com/kurobanekengo/password-core.git#develop"
   },
   "devDependencies": {
     "@types/express": "^4.17.3",
