@@ -1,44 +1,21 @@
-# 開発環境の構築
+# 開発環境構築メモ
+基本的には`password-client`同様なため、そちらを参照すること。ここでは`password-server`固有の点を記載。
 
-## NodeJSのインストール
-### NVMのインストール
+## ts-nodeとtsconfig-pathsについて
+server起動は`npm start`でできるようにしてあるため、いったん動作させることができた後はそれ以降、
+基本気にする必要はない。とはいえ時間をおいてから何のための設定なのか忘れそうなので備忘録がわりにメモ。
 
-```
-$ git clone https://github.com/creationix/nvm.git ~/.nvm
-```
+serverは`password-client`と違いブラウザ上ではなくnode上で動作する。そのためwebpackは行わない。
+webpackを経由していないためtsconfigによるエイリアス設定を解決していない状態でjsが出力されてしまう。
+(`import @api/xxx`等)
 
-## Vagrantの設定
-Vagrantの共有フォルダ設定を行いホスト上のソースをゲストから参照できるようにする。
-共有方式はrsyncとする。→ パフォーマンス及び開発時にHMRを利用できるという条件に最も適合したため。
+tsconfigのエイリアス設定を適用させた状態で動作させるために
 
-Vagrantfileの共有設定:
-```
-  config.vm.synced_folder ".", "/home/vagrant/shared",
-    type: "rsync",
-    rsync_auto: true,
-    owner: "vagrant",
-    group: "vagrant",
-    rsync__exclude: [".git", "node_modules"]
-```
+- ts-node
+- tsconfig-paths
 
-### vagrant-rsync-backプラグインのインストール
-Vagrantfileにて`rsync_auto: true`を設定してあるが、この設定だけではホスト→ゲストへの転送しか行わない。
-`npm install`等を実施する際はゲスト上でファイルの編集をすることになるのでゲスト→ホストへの転送も必要になる。
-これを実現するためにVagrant用のプラグイン｀vagrant-rsync-back`をインストール。
+を使用することにした。`npm start`の内容は以下となっている。
 
 ```
-vagrant plugin install vagrant rsync-back
+ts-node -r tsconfig-paths/register source/start.ts
 ```
-
-### 同期の実行
-Vagrantfileがあるディレクトリで下記コマンドを実行するとファイル編集時に同期されるようになる。
-```
-$ vagrant rsync-auto &
-```
-
-ゲスト側でファイルを編集時した場合は下記を*都度*実行すること。
-```
-$ vagrant rsync-back &
-```
-
-## ライブラリのインストール
