@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "./build",
     "baseUrl": "./",
-    "lib": ["es5", "es6"],
+    "lib": ["es2019"],
     "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -10,9 +10,10 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "paths": {
+      "@core/*": ["node_modules/password-core/dist/*"],
       "@server/*": ["source/server/*", "build/server/*"],
       "@api/*": ["source/api/*", "build/api/*"],
-      "@core/*": ["node_modules/password-core/dist/*"]
+      "@util/*": ["source/util/*", "build/util/*"]
     }
   },
   "exclude": [
