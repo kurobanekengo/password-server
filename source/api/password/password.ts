@@ -1,7 +1,7 @@
 import {ApiDeclarations} from "@core/api/apiDefinitions";
 import {ApiDeclaration} from "@core/api/apiDescriptor";
 import {PasswordEntity} from "@core/entity/passwordEntity";
-import {VOID, Void} from "@core/model/void";
+import {VOID, Void} from "@core/model/common";
 import {router} from "@server/server";
 
 const getPasswords: ApiDeclaration<Void, PasswordEntity[], 1> = ApiDeclarations.getPasswords;

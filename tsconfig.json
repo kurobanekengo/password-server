@@ -10,7 +10,7 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "paths": {
-      "@core/*": ["node_modules/password-core/dist/*"],
+      "@core/*": ["../password-core/dist/*"],
       "@server/*": ["source/server/*", "build/server/*"],
       "@api/*": ["source/api/*", "build/api/*"],
       "@util/*": ["source/util/*", "build/util/*"]
