@@ -4,4 +4,4 @@ import "@api/password/password";
 
 const config = getConfig();
 server.use(`/${config.api.prefixPath}`, router);
-server.listen(config.api.port, () =>{});
+server.listen(config.api.port, config.api.host, () =>{});
