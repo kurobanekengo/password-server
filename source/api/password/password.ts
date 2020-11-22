@@ -1,18 +1,23 @@
-import {ApiDeclarations} from "@core/api/apiDefinitions";
-import {ApiDeclaration} from "@core/api/apiDescriptor";
+import {Api} from "@core/api/api";
+import { CategoryId } from "@core/entity/categoryEntity";
 import {PasswordEntity} from "@core/entity/passwordEntity";
 import {VOID, Void} from "@core/model/common";
 import {router} from "@server/server";
 
-const getPasswords: ApiDeclaration<Void, PasswordEntity[], 1> = ApiDeclarations.getPasswords;
+const v1 = Api.v1; 
 
-// FIXME リクエスト型がタイプセーフになっていない
-getPasswords.defineApi(1, () => {
-  return [];
+v1.getPasswords.implementApi((request) => {
+  return { data: { passwords: [] } };
 });
 
-const api = getPasswords.getApi(1);
-router.get(`/${api.apiPath}`, (req, res) => {
-  const apiResult = api.apiBody(VOID);
+console.log(`register api: ${v1.getPasswords.path}`);
+router.get(`/${v1.getPasswords.path}`, (req, res) => {
+  console.log(req.query);
+  const apiResult = v1.getPasswords.callApi({
+    data: {
+      keyword: "",
+      categoryId: CategoryId("")
+    }
+  });
   res.send(apiResult);
 });
