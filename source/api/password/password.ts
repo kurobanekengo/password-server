@@ -1,4 +1,5 @@
 import {Api} from "@core/api/api";
+import { PasswordSearchCondition } from "@core/api/request/passwordSearchCondition";
 import { CategoryId } from "@core/entity/categoryEntity";
 import {PasswordEntity} from "@core/entity/passwordEntity";
 import {VOID, Void} from "@core/model/common";
@@ -12,12 +13,10 @@ v1.getPasswords.implementApi((request) => {
 
 console.log(`register api: ${v1.getPasswords.path}`);
 router.get(`/${v1.getPasswords.path}`, (req, res) => {
-  console.log(req.query);
-  const apiResult = v1.getPasswords.callApi({
-    data: {
-      keyword: "",
-      categoryId: CategoryId("")
-    }
-  });
+  const request = req.query;
+  if (!PasswordSearchCondition.isPasswordSearchCondition(request)) {
+    throw new Error("invalid request parameters");
+  }
+  const apiResult = v1.getPasswords.callApi({ data: request });
   res.send(apiResult);
 });
